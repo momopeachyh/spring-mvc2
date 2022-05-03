@@ -30,10 +30,15 @@ public class HomeController {
 		return "message";
 	}
 	
-	@RequestMapping(value="/users", produces="application/json")
-	@ResponseBody
-	public List<User> getUsers() {
+	@RequestMapping("/users")
+	public String getUsers(ModelMap model) {
 		List<User> users = repository.findAll();
-		return users;
+		String userName = null;
+		for(User usr: users) {
+			userName = usr.getUserName();
+		}
+		model.addAttribute("value", userName);
+		return "users";
 	}
-}
+	
+	}
